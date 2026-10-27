@@ -61,24 +61,29 @@ export default defineConfig({
   server: {
     proxy: {
       '/categories': {
-        target: 'http://localhost:3000',
+        target: 'https://api.autoneu.in',
         changeOrigin: true,
+        secure: false,
       },
       '/products': {
-        target: 'http://localhost:3000',
+        target: 'https://api.autoneu.in',
         changeOrigin: true,
+        secure: false,
       },
       '/auth': {
-        target: 'http://localhost:3000',
+        target: 'https://api.autoneu.in',
         changeOrigin: true,
+        secure: false,
       },
       '/user': {
-        target: 'http://localhost:3000',
+        target: 'https://api.autoneu.in',
         changeOrigin: true,
+        secure: false,
       },
       '/hello': {
-        target: 'http://localhost:3000',
+        target: 'https://api.autoneu.in',
         changeOrigin: true,
+        secure: false,
       },
     },
   },
