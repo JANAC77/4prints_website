@@ -35,8 +35,8 @@ const MainNavbar = () => {
   };
 
   return (
-    <nav className="w-full bg-[#fdfbf6]/95 backdrop-blur-md font-poppins border-b border-gray-200/80 sticky top-0 z-50 transition-all duration-300">
-      <div className="max-w-[1440px] mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8 py-3.5">
+    <nav className="w-full bg-[#fdfbf6] font-poppins border-b border-gray-100 sticky top-0 z-50 transition-all duration-300">
+      <div className="max-w-[1440px] mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8 py-4">
         {/* Left: Logo */}
         <Link to="/" className="flex-shrink-0 flex items-center group">
           <img
@@ -56,7 +56,7 @@ const MainNavbar = () => {
           {/* Wishlist */}
           <Link
             to="/wishlist"
-            className="relative flex items-center justify-center w-11 h-11 rounded-full hover:bg-yellow-100/80 hover:text-yellow-900 transition-all active:scale-95 text-gray-800"
+            className="relative flex items-center justify-center p-2 rounded-full hover:bg-yellow-100 hover:text-yellow-800 transition-colors text-gray-700"
             title="Wishlist"
           >
             <Icon icon="solar:heart-linear" className="text-2xl" />
@@ -70,7 +70,7 @@ const MainNavbar = () => {
           {/* Cart */}
           <Link
             to="/cart"
-            className="relative flex items-center justify-center w-11 h-11 rounded-full hover:bg-yellow-100/80 hover:text-yellow-900 transition-all active:scale-95 text-gray-800"
+            className="relative flex items-center justify-center p-2 rounded-full hover:bg-yellow-100 hover:text-yellow-800 transition-colors text-gray-700"
             title="Shopping Cart"
           >
             <Icon icon="solar:cart-outline" className="text-2xl" />
@@ -155,9 +155,9 @@ const MainNavbar = () => {
           ) : (
             <Link
               to="/login"
-              className="bg-[#FFD40C] hover:bg-[#ffc800] text-gray-950 font-bold px-7 py-2.5 rounded-full transition-all text-sm shadow-xs hover:scale-105 active:scale-95"
+              className="bg-[#ffcc00] text-black font-semibold px-8 py-2.5 rounded-md hover:bg-[#e6b800] transition-colors text-sm whitespace-nowrap"
             >
-              Sign In
+              Login
             </Link>
           )}
         </div>
@@ -263,9 +263,9 @@ const MainNavbar = () => {
               <Link
                 to="/login"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="block w-full bg-[#FFD40C] text-gray-950 font-bold py-3 rounded-full text-center shadow-xs"
+                className="block w-full bg-[#ffcc00] text-black font-semibold px-6 py-3 rounded-md mt-4 text-center hover:bg-[#e6b800] transition-colors"
               >
-                Sign In
+                Login
               </Link>
             )}
           </div>

@@ -86,7 +86,7 @@ const SubNavbar = () => {
   const isAllProductsActive = location.pathname === '/products' && !location.search;
 
   return (
-    <div className="w-full bg-white border-b border-gray-100 font-poppins relative z-30 shadow-xs overflow-visible">
+    <div className="w-full bg-white border-b border-gray-200 font-poppins relative z-30 overflow-visible">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-visible relative">
         {/* Categories Navigation Bar */}
         <nav
@@ -96,10 +96,10 @@ const SubNavbar = () => {
           {/* All Products Tab */}
           <Link
             to="/products"
-            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-medium transition-all duration-150 shrink-0 select-none ${
+            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md font-medium transition-all duration-150 shrink-0 select-none ${
               isAllProductsActive
-                ? 'bg-yellow-400 text-gray-950 font-semibold shadow-xs'
-                : 'text-gray-600 hover:text-gray-950 hover:bg-gray-100/80'
+                ? 'bg-[#ffcc00] text-black font-semibold'
+                : 'text-gray-700 hover:text-black hover:bg-gray-100/80'
             }`}
           >
             <Icon
@@ -157,12 +157,12 @@ const SubNavbar = () => {
                 <Link
                   to={`/category/${cat.slug}`}
                   title={cat.name}
-                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-medium transition-all duration-150 whitespace-nowrap select-none cursor-pointer ${
+                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md font-medium transition-all duration-150 whitespace-nowrap select-none cursor-pointer ${
                     isCategoryActive
-                      ? 'bg-yellow-400 text-gray-950 font-semibold shadow-xs'
+                      ? 'bg-[#ffcc00] text-black font-semibold'
                       : isDropdownOpen
-                      ? 'bg-gray-100 text-gray-950 font-medium'
-                      : 'text-gray-600 hover:text-gray-950 hover:bg-gray-100/80'
+                      ? 'bg-gray-100 text-black font-medium'
+                      : 'text-gray-700 hover:text-black hover:bg-gray-100/80'
                   }`}
                 >
                   <span className="truncate max-w-[130px] sm:max-w-[170px] md:max-w-[210px]">

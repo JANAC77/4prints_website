@@ -13,36 +13,27 @@ const CategoryCard = ({ category }) => {
   return (
     <Link
       to={`/category/${slug}`}
-      className="p-2 sm:p-3 flex flex-col items-center w-[115px] sm:w-[140px] md:w-[160px] lg:w-[175px] cursor-pointer group"
+      className="p-2 sm:p-3 md:p-4 flex flex-col items-center w-[110px] sm:w-[140px] md:w-[160px] lg:w-[180px] cursor-pointer group"
     >
-      {/* Circle Capsule */}
-      <div className="relative w-full aspect-square rounded-full p-1 bg-white border border-gray-100 shadow-xs group-hover:shadow-lg group-hover:border-yellow-400/80 transition-all duration-300 mb-2.5 sm:mb-3">
-        <div className="relative w-full h-full rounded-full overflow-hidden bg-gray-50 flex items-center justify-center">
-          <img
-            src={getDisplayImageUrl(image)}
-            alt={title}
-            className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-112"
-            loading="lazy"
-          />
-
-          {category.badge && (
-            <div className="absolute top-1.5 right-1.5 bg-[#FFD40C] text-gray-950 text-[9px] font-extrabold px-2 py-0.5 rounded-full shadow-xs z-10">
-              <span>{category.badge}</span>
-            </div>
-          )}
-        </div>
+      <div className="relative w-full aspect-square rounded-full flex items-center justify-center mb-2 sm:mb-3 md:mb-4 bg-[#f4f1ea] transition-transform duration-300 group-hover:scale-105">
+        <img
+          src={getDisplayImageUrl(image)}
+          alt={title}
+          className="w-2/3 h-2/3 object-cover"
+          loading="lazy"
+        />
+        {category.badge && (
+          <div className="absolute -top-1 -right-1 sm:top-1 sm:-right-2 bg-[#FFD40C] text-gray-900 text-[9px] sm:text-[10px] font-bold px-1.5 py-0.5 sm:px-2.5 sm:py-1 rounded-full flex items-center gap-1 shadow-sm whitespace-nowrap z-10">
+            <span>{category.badge}</span>
+          </div>
+        )}
       </div>
-
-      {/* Label */}
-      <h3
-        className="font-bold text-gray-900 text-xs sm:text-sm text-center line-clamp-1 w-full group-hover:text-yellow-800 transition-colors"
-        title={title}
-      >
+      <h3 className="font-semibold text-gray-900 text-xs sm:text-sm text-center line-clamp-1 w-full" title={title}>
         {title}
       </h3>
-      <span className="text-gray-400 text-[10px] sm:text-[11px] mt-0.5 text-center truncate max-w-full">
+      <p className="text-gray-500 text-[10px] sm:text-xs mt-0.5 sm:mt-1 text-center">
         {count}
-      </span>
+      </p>
     </Link>
   );
 };

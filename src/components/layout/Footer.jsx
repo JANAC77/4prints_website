@@ -9,201 +9,100 @@ import rupayLogo from '../../assets/images/RuPay.svg.webp';
 
 const Footer = () => {
   return (
-    <footer className="bg-[#110C0B] text-gray-300 py-10 sm:py-14 border-t border-white/10 font-poppins w-full">
+    <footer className="bg-[#151515] text-gray-300 py-8 sm:py-10 md:py-12 border-t border-gray-800 font-poppins w-full">
       <div className="container mx-auto px-4 sm:px-6 lg:px-12 max-w-7xl">
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-12 mb-10 sm:mb-14">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 sm:gap-8 lg:gap-12 mb-8 sm:mb-12">
           {/* Logo and Description */}
           <div className="col-span-2 sm:col-span-2 lg:col-span-1">
-            <Link to="/" className="inline-block mb-4">
-              <img src={logo} alt="4prints Logo" className="h-9 sm:h-11 w-auto" />
-            </Link>
-            <p className="text-xs sm:text-sm text-gray-400 mb-6 leading-relaxed">
-              Premium custom printing solutions engineered for businesses, creators, and individuals. Built for vibrant longevity.
+            <div className="mb-3 sm:mb-4">
+              <Link to="/">
+                <img src={logo} alt="4prints Logo" className="h-8 sm:h-10 md:h-12 w-auto" />
+              </Link>
+            </div>
+            <p className="text-xs sm:text-sm text-gray-400 mb-5 sm:mb-6 leading-relaxed">
+              High-quality printing solutions for businesses and individuals. Designed to make your brand stand out.
             </p>
-            <div className="flex space-x-2.5">
-              <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noreferrer"
-                className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#FFD40C] hover:text-black transition-all text-white active:scale-95"
-                aria-label="Facebook"
-              >
-                <FaFacebookF className="w-3.5 h-3.5" />
+            <div className="flex space-x-2.5 sm:space-x-3">
+              <a href="#" className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#2a2a2a] flex items-center justify-center hover:bg-[#FBB03B] hover:text-white transition-colors text-white" aria-label="Facebook">
+                <FaFacebookF className="w-3 sm:w-3.5 h-3 sm:h-3.5" />
               </a>
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noreferrer"
-                className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#FFD40C] hover:text-black transition-all text-white active:scale-95"
-                aria-label="Instagram"
-              >
-                <FaInstagram className="w-4 h-4" />
+              <a href="#" className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#2a2a2a] flex items-center justify-center hover:bg-[#FBB03B] hover:text-white transition-colors text-white" aria-label="Instagram">
+                <FaInstagram className="w-3.5 sm:w-4 h-3.5 sm:h-4" />
               </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noreferrer"
-                className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#FFD40C] hover:text-black transition-all text-white active:scale-95"
-                aria-label="Twitter"
-              >
-                <Icon icon="solar:close-circle-linear" className="w-4 h-4" />
+              <a href="#" className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#2a2a2a] flex items-center justify-center hover:bg-[#FBB03B] hover:text-white transition-colors text-white" aria-label="Twitter">
+                <Icon icon="codicon:twitter" className="w-3.5 sm:w-4 h-3.5 sm:h-4" />
               </a>
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noreferrer"
-                className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#FFD40C] hover:text-black transition-all text-white active:scale-95"
-                aria-label="LinkedIn"
-              >
-                <FaLinkedinIn className="w-4 h-4" />
+              <a href="#" className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#2a2a2a] flex items-center justify-center hover:bg-[#FBB03B] hover:text-white transition-colors text-white" aria-label="LinkedIn">
+                <FaLinkedinIn className="w-3.5 sm:w-4 h-3.5 sm:h-4" />
               </a>
             </div>
           </div>
 
           {/* Products */}
           <div className="col-span-1">
-            <h3 className="text-white font-bold mb-4 text-xs uppercase tracking-wider text-yellow-400">
-              Print Catalog
-            </h3>
-            <ul className="space-y-2.5 text-xs sm:text-sm text-gray-400">
-              <li>
-                <Link to="/products" className="hover:text-yellow-400 transition-colors">
-                  Business Cards
-                </Link>
-              </li>
-              <li>
-                <Link to="/products" className="hover:text-yellow-400 transition-colors">
-                  Flyers & Brochures
-                </Link>
-              </li>
-              <li>
-                <Link to="/products" className="hover:text-yellow-400 transition-colors">
-                  Custom Apparel
-                </Link>
-              </li>
-              <li>
-                <Link to="/products" className="hover:text-yellow-400 transition-colors">
-                  Stickers & Decals
-                </Link>
-              </li>
-              <li>
-                <Link to="/products" className="text-yellow-400 font-semibold hover:underline flex items-center gap-1">
-                  <span>Browse All Products</span>
-                  <Icon icon="solar:arrow-right-linear" />
-                </Link>
-              </li>
+            <h3 className="text-white font-semibold sm:font-medium mb-3 sm:mb-4 text-sm sm:text-base lg:text-base">Products</h3>
+            <ul className="space-y-2 sm:space-y-3 text-xs sm:text-sm text-gray-400">
+              <li><Link to="/products" className="hover:text-white transition-colors">Business Cards</Link></li>
+              <li><Link to="/products" className="hover:text-white transition-colors">Flyers & Brochures</Link></li>
+              <li><Link to="/products" className="hover:text-white transition-colors">Posters</Link></li>
+              <li><Link to="/products" className="hover:text-white transition-colors">Stickers & Labels</Link></li>
+              <li><Link to="/products" className="hover:text-white transition-colors">View All Products</Link></li>
             </ul>
           </div>
 
           {/* Resources */}
           <div className="col-span-1">
-            <h3 className="text-white font-bold mb-4 text-xs uppercase tracking-wider text-yellow-400">
-              Resources
-            </h3>
-            <ul className="space-y-2.5 text-xs sm:text-sm text-gray-400">
-              <li>
-                <Link to="/products" className="hover:text-white transition-colors">
-                  Design Guidelines
-                </Link>
-              </li>
-              <li>
-                <Link to="/products" className="hover:text-white transition-colors">
-                  Color Matching (CMYK)
-                </Link>
-              </li>
-              <li>
-                <Link to="/account" className="hover:text-white transition-colors">
-                  Track My Order
-                </Link>
-              </li>
-              <li>
-                <a href="#faq" className="hover:text-white transition-colors">
-                  Shipping Rates
-                </a>
-              </li>
-              <li>
-                <a href="#help" className="hover:text-white transition-colors">
-                  Frequently Asked Questions
-                </a>
-              </li>
+            <h3 className="text-white font-semibold sm:font-medium mb-3 sm:mb-4 text-sm sm:text-base lg:text-base">Resources</h3>
+            <ul className="space-y-2 sm:space-y-3 text-xs sm:text-sm text-gray-400">
+              <li><Link to="/products" className="hover:text-white transition-colors">Templates</Link></li>
+              <li><Link to="/products" className="hover:text-white transition-colors">Design Tools</Link></li>
+              <li><Link to="/products" className="hover:text-white transition-colors">Help Center</Link></li>
+              <li><Link to="/products" className="hover:text-white transition-colors">Shipping & Delivery</Link></li>
+              <li><Link to="/products" className="hover:text-white transition-colors">FAQs</Link></li>
             </ul>
           </div>
 
           {/* Our Policy */}
           <div className="col-span-1">
-            <h3 className="text-white font-bold mb-4 text-xs uppercase tracking-wider text-yellow-400">
-              Policies
-            </h3>
-            <ul className="space-y-2.5 text-xs sm:text-sm text-gray-400">
-              <li>
-                <a href="#" className="hover:text-white transition-colors">
-                  Privacy Policy
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white transition-colors">
-                  Terms of Service
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white transition-colors">
-                  Return & Refund Guarantee
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white transition-colors">
-                  Quality Assurance
-                </a>
-              </li>
+            <h3 className="text-white font-semibold sm:font-medium mb-3 sm:mb-4 text-sm sm:text-base lg:text-base">Our Policy</h3>
+            <ul className="space-y-2 sm:space-y-3 text-xs sm:text-sm text-gray-400">
+              <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Refund Policy</a></li>
             </ul>
           </div>
 
           {/* Need Help? */}
           <div className="col-span-1">
-            <h3 className="text-white font-bold mb-4 text-xs uppercase tracking-wider text-yellow-400">
-              Contact Us
-            </h3>
-            <ul className="space-y-3.5 text-xs sm:text-sm text-gray-400">
-              <li className="flex items-center space-x-3">
-                <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center shrink-0 text-yellow-400">
-                  <FiMail className="text-sm" />
-                </div>
-                <a href="mailto:support@4prints.in" className="hover:text-white transition-colors truncate">
-                  support@4prints.in
-                </a>
+            <h3 className="text-white font-semibold sm:font-medium mb-3 sm:mb-4 text-sm sm:text-base lg:text-base">Need Help?</h3>
+            <ul className="space-y-3 sm:space-y-4 text-xs sm:text-sm text-gray-400">
+              <li className="flex items-center space-x-2.5 sm:space-x-3">
+                <FiMail className="text-sm sm:text-base shrink-0" />
+                <a href="mailto:support@4prints.in" className="hover:text-white transition-colors break-all sm:break-normal">support@4prints.in</a>
               </li>
-              <li className="flex items-center space-x-3">
-                <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center shrink-0 text-yellow-400">
-                  <FiPhoneCall className="text-sm" />
-                </div>
-                <a href="tel:+919876543210" className="hover:text-white transition-colors">
-                  +91 98765 43210
-                </a>
-              </li>
-              <li className="text-[11px] text-gray-500 pt-1">
-                Mon - Sat: 9:00 AM - 7:00 PM IST
+              <li className="flex items-center space-x-2.5 sm:space-x-3">
+                <FiPhoneCall className="text-sm sm:text-base shrink-0" />
+                <a href="tel:+919876543210" className="hover:text-white transition-colors">+91 98765 43210</a>
               </li>
             </ul>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-xs text-gray-400 gap-4">
-          <p className="text-[11px] sm:text-xs text-center md:text-left">
-            &copy; {new Date().getFullYear()} 4prints Technologies. All rights reserved. Crafted for excellence.
-          </p>
-          <div className="flex space-x-2.5 items-center">
-            <div className="bg-white rounded-lg px-2.5 py-1 flex items-center justify-center h-8 shadow-xs">
-              <Icon icon="logos:mastercard" className="w-6 h-auto" />
+        <div className="pt-4 sm:pt-6 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500 gap-3 md:gap-0">
+          <p className="text-[11px] sm:text-xs md:text-xs text-center md:text-left">&copy; {new Date().getFullYear()} 4prints. All rights reserved.</p>
+          <div className="flex space-x-2.5 sm:space-x-3 items-center">
+            <div className="bg-white rounded px-1.5 sm:px-2 py-1 flex items-center justify-center h-7 sm:h-8">
+              <Icon icon="logos:mastercard" className="w-6 sm:w-7 h-auto" />
             </div>
-            <div className="bg-white rounded-lg px-2.5 py-1 flex items-center justify-center h-8 shadow-xs">
-              <Icon icon="logos:visa" className="w-6 h-auto" />
+            <div className="bg-white rounded px-1.5 sm:px-2 py-1 flex items-center justify-center h-7 sm:h-8">
+              <Icon icon="logos:visa" className="w-6 sm:w-7 h-auto" />
             </div>
-            <div className="bg-white rounded-lg px-2.5 py-1 flex items-center justify-center h-8 shadow-xs">
-              <img src={upiLogo} alt="UPI" className="h-3 w-auto object-contain" />
+            <div className="bg-white rounded px-1.5 sm:px-2 flex items-center justify-center h-7 sm:h-8">
+              <img src={upiLogo} alt="UPI" className="h-2.5 sm:h-3 w-auto object-contain" />
             </div>
-            <div className="bg-white rounded-lg px-2.5 py-1 flex items-center justify-center h-8 shadow-xs">
-              <img src={rupayLogo} alt="RuPay" className="h-3.5 w-auto object-contain" />
+            <div className="bg-white rounded px-1.5 sm:px-2 flex items-center justify-center h-7 sm:h-8">
+              <img src={rupayLogo} alt="RuPay" className="h-3 sm:h-3.5 w-auto object-contain" />
             </div>
           </div>
         </div>

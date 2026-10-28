@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import { productApi } from '../../api/product.api';
-import { getDisplayImageUrl, formatCurrency } from '../../utils/formatters';
+import { getDisplayImageUrl } from '../../utils/formatters';
 
 const TrendingCard = ({ product, index, total }) => {
   const [hovered, setHovered] = useState(false);
@@ -10,12 +10,12 @@ const TrendingCard = ({ product, index, total }) => {
   const isFirst = index === 0;
   const isLast = total ? index === total - 1 : rank >= 10;
 
-  const mlClass = isFirst ? 'ml-[45px]' : isLast ? 'ml-[90px]' : 'ml-[60px]';
-  const plClass = isFirst ? 'pl-[45px]' : isLast ? 'pl-[90px]' : 'pl-[60px]';
-  const cardWidth = isFirst ? '195px' : isLast ? '240px' : '210px';
+  const mlClass = isFirst ? 'ml-[45px]' : isLast ? 'ml-[100px]' : 'ml-[60px]';
+  const plClass = isFirst ? 'pl-[45px]' : isLast ? 'pl-[100px]' : 'pl-[60px]';
+  const cardWidth = isFirst ? '185px' : isLast ? '240px' : '200px';
 
   const title = product.name || product.title;
-  const slug = product.slug || product._id;
+  const slug = product.slug || product._id || product.id;
   const image =
     (product.images && product.images[0]?.url) ||
     product.image ||
@@ -29,15 +29,16 @@ const TrendingCard = ({ product, index, total }) => {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* Giant Number behind card */}
+      {/* Number behind card */}
       <span
-        className="absolute left-0 bottom-[32px] font-black leading-none select-none pointer-events-none z-0 transition-all duration-300"
+        className="absolute left-0 bottom-[28px] font-black leading-none select-none pointer-events-none z-0 transition-all duration-300"
         style={{
           fontSize: '140px',
           lineHeight: 1,
           color: 'transparent',
-          WebkitTextStroke: hovered ? '3.5px #FFD40C' : '2px #d1d5db',
-          filter: hovered ? 'drop-shadow(0 4px 12px rgba(255,212,12,0.4))' : 'none',
+          WebkitTextStroke: hovered ? '3px #FFD40C' : '2.5px #d1d5db',
+          transition: 'all 0.3s ease',
+          bottom: '28px',
         }}
       >
         {rank}
@@ -45,54 +46,35 @@ const TrendingCard = ({ product, index, total }) => {
 
       {/* Image card — overlapping the number, offset to the right */}
       <div
-        className={`relative z-10 ${mlClass} aspect-square rounded-2xl overflow-hidden shadow-sm bg-gray-50 border border-gray-100 transition-all duration-300`}
+        className={`relative z-10 ${mlClass} aspect-square rounded-[14px] overflow-hidden shadow-md bg-gray-100 transition-all duration-300`}
         style={{
           boxShadow: hovered
-            ? '0 16px 36px rgba(0,0,0,0.15)'
-            : '0 4px 16px rgba(0,0,0,0.06)',
-          transform: hovered ? 'translateY(-6px)' : 'translateY(0)',
+            ? '0 12px 32px rgba(0,0,0,0.18)'
+            : '0 4px 16px rgba(0,0,0,0.08)',
+          transform: hovered ? 'translateY(-4px)' : 'translateY(0)',
         }}
       >
         <img
           src={getDisplayImageUrl(image)}
           alt={title}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-108"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           loading="lazy"
         />
 
-        {/* Hover dark gradient overlay with icon */}
+        {/* Hover gradient overlay */}
         <div
-          className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-3 transition-opacity duration-300"
+          className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent transition-opacity duration-300"
           style={{ opacity: hovered ? 1 : 0 }}
-        >
-          <span className="text-[11px] font-bold text-white flex items-center gap-1">
-            <span>View Product</span>
-            <Icon icon="solar:arrow-right-linear" className="text-yellow-400" />
-          </span>
-        </div>
+        />
       </div>
 
       {/* Product Title */}
       <h3
-        className={`mt-3 font-bold text-gray-900 text-xs sm:text-sm line-clamp-1 ${plClass} transition-colors duration-200 group-hover:text-yellow-800`}
+        className={`mt-3 font-semibold text-gray-900 text-sm line-clamp-1 ${plClass} transition-colors duration-200 group-hover:text-gray-700`}
         title={title}
       >
         {title}
       </h3>
-
-      {/* Starting Price with Rupee Symbol */}
-      <div className={`mt-1 text-xs font-extrabold text-gray-950 flex items-baseline gap-1.5 ${plClass}`}>
-        <span>
-          {product.pricing && product.pricing.length > 0
-            ? formatCurrency(product.pricing[0].price)
-            : '₹250'}
-        </span>
-        {product.pricing && product.pricing[0]?.quantity && (
-          <span className="text-[10px] text-gray-400 font-normal">
-            ({product.pricing[0].quantity} pcs)
-          </span>
-        )}
-      </div>
     </Link>
   );
 };
@@ -106,7 +88,7 @@ const TopTrendingProducts = () => {
   useEffect(() => {
     let isMounted = true;
     productApi
-      .list({ limit: 12 })
+      .list({ limit: 10 })
       .then((res) => {
         if (isMounted && res.products && res.products.length > 0) {
           const sorted = [...res.products].sort((a, b) => {
@@ -146,46 +128,33 @@ const TopTrendingProducts = () => {
 
   const scrollLeft = () => {
     if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: -320, behavior: 'smooth' });
+      scrollRef.current.scrollBy({ left: -300, behavior: 'smooth' });
     }
   };
 
   const scrollRight = () => {
     if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: 320, behavior: 'smooth' });
+      scrollRef.current.scrollBy({ left: 300, behavior: 'smooth' });
     }
   };
 
   if (products.length === 0) return null;
 
   return (
-    <section className="py-6 lg:py-10 bg-[#fdfbf6]">
-      <div className="relative group w-full max-w-[1440px] mx-auto">
+    <section className="py-5 lg:py-8 bg-[#fdfbf6]">
+      <div className="relative group w-full">
         {/* Section Header */}
-        <div className="px-4 sm:px-6 md:px-8 flex items-end justify-between mb-4 sm:mb-6">
-          <div>
-            <div className="inline-flex items-center gap-1.5 text-xs font-bold text-yellow-800 uppercase tracking-wider mb-1">
-              <Icon icon="solar:chart-bold" className="text-yellow-600" />
-              <span>Trending Leaderboard</span>
-            </div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-gray-900 tracking-tight">
-              Top 10 Trending Products
-            </h2>
-          </div>
-          <Link
-            to="/products?badge=featured"
-            className="text-xs sm:text-sm text-yellow-800 hover:text-black font-bold flex items-center gap-1 transition-colors"
-          >
-            <span>View All Featured</span>
-            <Icon icon="solar:arrow-right-linear" />
-          </Link>
+        <div className="px-4 sm:px-6 md:px-8 flex items-center gap-3 mb-3 sm:mb-4">
+          <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 font-poppins">
+            Top 10 Trending Products
+          </h2>
         </div>
 
-        {/* Left Scroll Button */}
+        {/* Left Button */}
         {canScrollLeft && (
-          <button
+          <button 
             onClick={scrollLeft}
-            className="absolute left-2 sm:left-4 top-[50%] -translate-y-1/2 w-11 h-11 bg-white/95 backdrop-blur-md rounded-full shadow-lg border border-gray-200 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 z-20 hover:bg-[#FFD40C] hover:text-black text-gray-800 cursor-pointer active:scale-95"
+            className="absolute left-2 top-[50%] -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 z-10 hover:bg-yellow-100 hover:text-yellow-800 text-gray-700 cursor-pointer"
             aria-label="Scroll left"
           >
             <Icon icon="lucide:chevron-left" className="text-2xl" />
@@ -193,30 +162,30 @@ const TopTrendingProducts = () => {
         )}
 
         {/* Scroll Container */}
-        <div
+        <div 
           ref={scrollRef}
           onScroll={checkScroll}
-          className="flex overflow-x-auto gap-3 md:gap-4 px-4 sm:px-6 md:px-8 pb-8 snap-x snap-mandatory scrollbar-hide pt-4 scroll-smooth"
+          className="flex overflow-x-auto gap-2 md:gap-3 px-4 sm:px-6 md:px-8 pb-8 snap-x snap-mandatory scrollbar-hide pt-4 scroll-smooth"
         >
           {products.map((product, index) => (
-            <div
-              key={product._id || product.id || index}
-              className={`snap-start shrink-0 ${index === 0 ? 'pl-6' : 'pl-1'}`}
+            <div 
+              key={product._id || product.id || index} 
+              className={`snap-start shrink-0 ${index === 0 ? 'pl-[32px]' : 'pl-[5px]'}`}
             >
-              <TrendingCard
-                product={product}
-                index={index}
-                total={products.length}
+              <TrendingCard 
+                product={product} 
+                index={index} 
+                total={products.length} 
               />
             </div>
           ))}
         </div>
 
-        {/* Right Scroll Button */}
+        {/* Right Button */}
         {canScrollRight && (
-          <button
+          <button 
             onClick={scrollRight}
-            className="absolute right-2 sm:right-4 top-[50%] -translate-y-1/2 w-11 h-11 bg-white/95 backdrop-blur-md rounded-full shadow-lg border border-gray-200 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 z-20 hover:bg-[#FFD40C] hover:text-black text-gray-800 cursor-pointer active:scale-95"
+            className="absolute right-2 top-[50%] -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 z-10 hover:bg-yellow-100 hover:text-yellow-800 text-gray-700 cursor-pointer"
             aria-label="Scroll right"
           >
             <Icon icon="lucide:chevron-right" className="text-2xl" />

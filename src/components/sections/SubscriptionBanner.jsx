@@ -16,72 +16,61 @@ const SubscriptionBanner = () => {
   };
 
   return (
-    <section className="py-8 sm:py-10 lg:py-14 bg-[#fdfbf6]">
+    <section className="py-6 sm:py-8 lg:py-12 bg-[#fdfbf6]">
       <div className="px-4 sm:px-6 lg:px-8 max-w-[1400px] mx-auto">
         <div 
-          className="w-full rounded-[24px] sm:rounded-[32px] border border-yellow-200/80 relative overflow-hidden flex flex-col md:flex-row items-center justify-between p-6 sm:p-8 lg:p-12 gap-8 shadow-xs"
-          style={{ background: 'linear-gradient(135deg, #fff6e0 0%, #fffaf0 50%, #ffffff 100%)' }}
+          className="w-full rounded-[20px] sm:rounded-[24px] lg:rounded-[32px] border border-yellow-100/60 relative overflow-hidden flex flex-col md:flex-row items-center justify-between p-5 md:p-6 lg:p-8 gap-6 sm:gap-8 md:gap-6"
+          style={{ background: 'linear-gradient(135deg, #fcf0da 0%, #f8f4ed 70%, #ffffff 100%)' }}
         >
+          
           {/* Image Section */}
           <div className="w-full md:w-1/2 flex items-center justify-center relative z-10 shrink-0">
             <img 
               src={subscriptionImg} 
               alt="Subscribe Newsletter Envelope" 
-              className="w-full h-auto max-w-[260px] sm:max-w-[300px] md:max-w-[360px] lg:max-w-[460px] object-contain drop-shadow-lg transition-transform duration-500 hover:scale-105"
+              className="w-full h-auto max-w-[270px] md:max-w-[320px] lg:max-w-[440px] xl:max-w-[500px] object-contain transition-transform duration-500"
             />
           </div>
 
           {/* Right Content Section */}
           <div className="w-full md:w-1/2 relative z-10 flex flex-col items-center text-center md:items-start md:text-left">
-            <div className="inline-flex items-center gap-1.5 bg-yellow-200/80 text-yellow-900 text-[11px] font-bold px-3 py-1 rounded-full mb-3">
-              <Icon icon="solar:letter-bold" className="text-yellow-700 text-xs" />
-              <span>Exclusive Newsletter</span>
-            </div>
-
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-950 mb-3 font-poppins leading-tight tracking-tight">
+            <h2 className="text-lg md:text-xl lg:text-2xl xl:text-3xl font-extrabold text-gray-900 mb-2 sm:mb-3 font-poppins leading-snug sm:leading-tight tracking-tight whitespace-nowrap">
               Stay Inspired, Stay Updated
             </h2>
-            <p className="text-xs sm:text-sm lg:text-base text-gray-600 mb-6 max-w-md leading-relaxed">
-              Subscribe to get exclusive early-bird discounts, seasonal design templates, and print inspiration directly in your inbox.
+            <p className="text-[10px] sm:text-xs md:text-[11px] lg:text-base text-gray-700/90 mb-5 sm:mb-6 max-w-[260px] xs:max-w-[310px] sm:max-w-[360px] md:max-w-[330px] lg:max-w-[470px] font-medium leading-relaxed line-clamp-2">
+              Subscribe to get exclusive offers, design tips, and new product updates straight to your inbox.
             </p>
             
             {/* Subscription Form */}
             {subscribed ? (
-              <div className="flex items-center gap-2.5 bg-emerald-50 text-emerald-800 border border-emerald-200 px-5 py-3.5 rounded-2xl font-bold text-sm">
-                <Icon icon="solar:check-circle-bold" className="text-emerald-600 text-xl" />
-                <span>🎉 You're in! Check your inbox for exclusive perks.</span>
+              <div className="flex items-center gap-2 bg-emerald-50 text-emerald-800 border border-emerald-200 px-4 py-2.5 rounded-xl font-medium text-xs sm:text-sm">
+                <Icon icon="solar:check-circle-bold" className="text-emerald-600 text-lg" />
+                <span>Subscribed successfully! Thank you.</span>
               </div>
             ) : (
               <form 
-                className="flex items-center w-full max-w-md bg-white rounded-2xl p-1.5 border border-gray-200 shadow-sm focus-within:border-yellow-400 focus-within:ring-3 focus-within:ring-yellow-400/20 transition-all duration-300" 
+                className="flex items-center w-full max-w-md md:max-w-[320px] lg:max-w-md bg-white rounded-xl sm:rounded-2xl md:rounded-xl lg:rounded-2xl p-1 sm:p-1.5 md:p-1 lg:p-1.5 border border-gray-200/80 focus-within:border-yellow-400 focus-within:ring-2 focus-within:ring-yellow-400/20 transition-all duration-300" 
                 onSubmit={handleSubmit}
               >
-                <div className="pl-3 text-gray-400">
-                  <Icon icon="solar:letter-linear" className="text-lg" />
-                </div>
                 <input 
                   type="email" 
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email address" 
-                  className="flex-grow px-3 py-2.5 text-xs sm:text-sm text-gray-800 outline-none min-w-0 placeholder:text-gray-400"
+                  className="flex-grow px-3 sm:px-4 md:px-3 lg:px-4 py-2.5 sm:py-3 md:py-2 lg:py-3 text-xs sm:text-sm md:text-xs lg:text-sm text-gray-800 outline-none min-w-0 placeholder:text-gray-400"
                   required
                 />
                 <button 
                   type="submit" 
-                  className="bg-[#110C0B] hover:bg-black active:scale-95 text-white text-xs sm:text-sm font-bold px-5 sm:px-6 py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 group shrink-0 shadow-xs cursor-pointer"
+                  className="bg-[#111111] hover:bg-[#222222] active:scale-[0.98] text-white text-xs sm:text-sm md:text-xs lg:text-sm font-semibold px-4 sm:px-6 md:px-3.5 lg:px-6 py-2.5 sm:py-3 md:py-2 lg:py-3 rounded-lg sm:rounded-xl md:rounded-lg lg:rounded-xl transition-all duration-300 flex items-center justify-center gap-1.5 sm:gap-2 group shrink-0 cursor-pointer"
                 >
                   <span>Subscribe</span>
-                  <Icon icon="solar:arrow-right-linear" className="text-yellow-400 text-sm transition-transform duration-300 group-hover:translate-x-1" />
+                  <Icon icon="weui:arrow-filled" className="text-[#ffcc00] text-sm sm:text-base md:text-xs lg:text-base transition-transform duration-300 group-hover:translate-x-1" />
                 </button>
               </form>
             )}
-
-            <p className="text-[11px] text-gray-400 mt-3 flex items-center gap-1.5">
-              <Icon icon="solar:shield-check-linear" className="text-gray-400 text-xs" />
-              <span>We value your privacy. Unsubscribe at any time.</span>
-            </p>
           </div>
+
         </div>
       </div>
     </section>

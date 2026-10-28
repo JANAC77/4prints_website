@@ -1,5 +1,4 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import CategoryCard from '../common/CategoryCard';
 import { Icon } from '@iconify/react';
 import { categoryApi } from '../../api/category.api';
@@ -42,45 +41,30 @@ const CategorySection = () => {
 
   const scrollLeft = () => {
     if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: -320, behavior: 'smooth' });
+      scrollRef.current.scrollBy({ left: -300, behavior: 'smooth' });
     }
   };
 
   const scrollRight = () => {
     if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: 320, behavior: 'smooth' });
+      scrollRef.current.scrollBy({ left: 300, behavior: 'smooth' });
     }
   };
 
   if (categories.length === 0) return null;
 
   return (
-    <section className="my-6 lg:my-10 bg-[#fdfbf6] w-full">
-      <div className="relative group w-full max-w-[1440px] mx-auto">
-        <div className="flex items-end justify-between px-4 sm:px-6 md:px-8 mb-4 sm:mb-6">
-          <div>
-            <div className="inline-flex items-center gap-1.5 text-xs font-bold text-yellow-800 uppercase tracking-wider mb-1">
-              <Icon icon="solar:widget-2-bold" className="text-yellow-600" />
-              <span>Catalog Categories</span>
-            </div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-gray-900 tracking-tight">
-              Explore By Category
-            </h2>
-          </div>
-          <Link
-            to="/products"
-            className="text-xs sm:text-sm text-yellow-800 hover:text-black font-bold flex items-center gap-1 transition-colors"
-          >
-            <span>View All ({categories.length})</span>
-            <Icon icon="solar:arrow-right-linear" />
-          </Link>
-        </div>
-
-        {/* Left Scroll Button */}
+    <section className="my-5 lg:my-8 mt-8 bg-[#fdfbf6] w-full">
+      <div className="relative group w-full">
+        <h2 className="px-4 sm:px-6 md:px-8 text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-3 sm:mb-4 lg:mb-6 font-poppins">
+          Explore all categories
+        </h2>
+        
+        {/* Left Button */}
         {canScrollLeft && (
-          <button
+          <button 
             onClick={scrollLeft}
-            className="absolute left-2 sm:left-4 top-[58%] -translate-y-1/2 w-11 h-11 bg-white/95 backdrop-blur-md rounded-full shadow-lg border border-gray-200 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 z-20 hover:bg-[#FFD40C] hover:text-black text-gray-800 cursor-pointer active:scale-95"
+            className="absolute left-2 top-[50%] -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 z-10 hover:bg-yellow-100 hover:text-yellow-800 text-gray-700 cursor-pointer"
             aria-label="Scroll left"
           >
             <Icon icon="lucide:chevron-left" className="text-2xl" />
@@ -88,26 +72,26 @@ const CategorySection = () => {
         )}
 
         {/* Scroll Container */}
-        <div
+        <div 
           ref={scrollRef}
           onScroll={checkScroll}
-          className="flex overflow-x-auto gap-3 sm:gap-4 md:gap-5 px-4 sm:px-6 md:px-8 pb-4 snap-x snap-mandatory scrollbar-hide scroll-smooth"
+          className="flex overflow-x-auto gap-2 sm:gap-3 md:gap-4 px-4 sm:px-6 md:px-8 pb-4 snap-x snap-mandatory scrollbar-hide scroll-smooth"
         >
           {categories.map((category, index) => (
-            <div
-              key={category._id || category.id || index}
-              className={`snap-start shrink-0 ${index === 0 ? 'pl-1' : ''}`}
+            <div 
+              key={category._id || category.id || index} 
+              className={`snap-start shrink-0 ${index === 0 ? 'pl-[16px]' : ''}`}
             >
               <CategoryCard category={category} />
             </div>
           ))}
         </div>
 
-        {/* Right Scroll Button */}
+        {/* Right Button */}
         {canScrollRight && (
-          <button
+          <button 
             onClick={scrollRight}
-            className="absolute right-2 sm:right-4 top-[58%] -translate-y-1/2 w-11 h-11 bg-white/95 backdrop-blur-md rounded-full shadow-lg border border-gray-200 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 z-20 hover:bg-[#FFD40C] hover:text-black text-gray-800 cursor-pointer active:scale-95"
+            className="absolute right-2 top-[50%] -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 z-10 hover:bg-yellow-100 hover:text-yellow-800 text-gray-700 cursor-pointer"
             aria-label="Scroll right"
           >
             <Icon icon="lucide:chevron-right" className="text-2xl" />
