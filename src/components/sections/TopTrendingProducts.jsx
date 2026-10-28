@@ -10,9 +10,9 @@ const TrendingCard = ({ product, index, total }) => {
   const isFirst = index === 0;
   const isLast = total ? index === total - 1 : rank >= 10;
 
-  const mlClass = isFirst ? 'ml-[45px]' : isLast ? 'ml-[100px]' : 'ml-[60px]';
-  const plClass = isFirst ? 'pl-[45px]' : isLast ? 'pl-[100px]' : 'pl-[60px]';
-  const cardWidth = isFirst ? '185px' : isLast ? '240px' : '200px';
+  const mlClass = isFirst ? 'ml-[32px] sm:ml-[45px]' : isLast ? 'ml-[70px] sm:ml-[100px]' : 'ml-[45px] sm:ml-[60px]';
+  const plClass = isFirst ? 'pl-[32px] sm:pl-[45px]' : isLast ? 'pl-[70px] sm:pl-[100px]' : 'pl-[45px] sm:pl-[60px]';
+  const cardWidthClass = isFirst ? 'w-[155px] sm:w-[185px]' : isLast ? 'w-[195px] sm:w-[240px]' : 'w-[170px] sm:w-[200px]';
 
   const title = product.name || product.title;
   const slug = product.slug || product._id || product.id;
@@ -24,21 +24,18 @@ const TrendingCard = ({ product, index, total }) => {
   return (
     <Link
       to={`/product/${slug}`}
-      className="relative shrink-0 snap-start cursor-pointer group block"
-      style={{ width: cardWidth }}
+      className={`relative shrink-0 snap-start cursor-pointer group block active:scale-98 transition-transform ${cardWidthClass}`}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
       {/* Number behind card */}
       <span
-        className="absolute left-0 bottom-[28px] font-black leading-none select-none pointer-events-none z-0 transition-all duration-300"
+        className="absolute left-0 bottom-[22px] sm:bottom-[28px] font-black leading-none select-none pointer-events-none z-0 transition-all duration-300 text-[105px] sm:text-[140px]"
         style={{
-          fontSize: '140px',
           lineHeight: 1,
           color: 'transparent',
           WebkitTextStroke: hovered ? '3px #FFD40C' : '2.5px #d1d5db',
           transition: 'all 0.3s ease',
-          bottom: '28px',
         }}
       >
         {rank}
@@ -70,7 +67,7 @@ const TrendingCard = ({ product, index, total }) => {
 
       {/* Product Title */}
       <h3
-        className={`mt-3 font-semibold text-gray-900 text-sm line-clamp-1 ${plClass} transition-colors duration-200 group-hover:text-gray-700`}
+        className={`mt-2 sm:mt-3 font-semibold text-gray-900 text-xs sm:text-sm line-clamp-1 ${plClass} transition-colors duration-200 group-hover:text-gray-700`}
         title={title}
       >
         {title}
@@ -141,20 +138,20 @@ const TopTrendingProducts = () => {
   if (products.length === 0) return null;
 
   return (
-    <section className="py-5 lg:py-8 bg-[#fdfbf6]">
+    <section className="py-3 sm:py-5 lg:py-8 bg-[#fdfbf6]">
       <div className="relative group w-full">
         {/* Section Header */}
-        <div className="px-4 sm:px-6 md:px-8 flex items-center gap-3 mb-3 sm:mb-4">
-          <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 font-poppins">
+        <div className="px-4 sm:px-6 md:px-8 flex items-center gap-3 mb-2 sm:mb-4">
+          <h2 className="text-base sm:text-xl md:text-2xl font-semibold text-gray-900 font-poppins">
             Top 10 Trending Products
           </h2>
         </div>
 
-        {/* Left Button */}
+        {/* Left Button - desktop only */}
         {canScrollLeft && (
           <button 
             onClick={scrollLeft}
-            className="absolute left-2 top-[50%] -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 z-10 hover:bg-yellow-100 hover:text-yellow-800 text-gray-700 cursor-pointer"
+            className="hidden md:flex absolute left-2 top-[50%] -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 z-10 hover:bg-yellow-100 hover:text-yellow-800 text-gray-700 cursor-pointer"
             aria-label="Scroll left"
           >
             <Icon icon="lucide:chevron-left" className="text-2xl" />
@@ -165,12 +162,12 @@ const TopTrendingProducts = () => {
         <div 
           ref={scrollRef}
           onScroll={checkScroll}
-          className="flex overflow-x-auto gap-2 md:gap-3 px-4 sm:px-6 md:px-8 pb-8 snap-x snap-mandatory scrollbar-hide pt-4 scroll-smooth"
+          className="flex overflow-x-auto gap-2 md:gap-3 px-4 sm:px-6 md:px-8 pb-6 sm:pb-8 snap-x snap-mandatory scrollbar-hide pt-2 sm:pt-4 scroll-smooth"
         >
           {products.map((product, index) => (
             <div 
               key={product._id || product.id || index} 
-              className={`snap-start shrink-0 ${index === 0 ? 'pl-[32px]' : 'pl-[5px]'}`}
+              className="snap-start shrink-0"
             >
               <TrendingCard 
                 product={product} 
@@ -181,11 +178,11 @@ const TopTrendingProducts = () => {
           ))}
         </div>
 
-        {/* Right Button */}
+        {/* Right Button - desktop only */}
         {canScrollRight && (
           <button 
             onClick={scrollRight}
-            className="absolute right-2 top-[50%] -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 z-10 hover:bg-yellow-100 hover:text-yellow-800 text-gray-700 cursor-pointer"
+            className="hidden md:flex absolute right-2 top-[50%] -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 z-10 hover:bg-yellow-100 hover:text-yellow-800 text-gray-700 cursor-pointer"
             aria-label="Scroll right"
           >
             <Icon icon="lucide:chevron-right" className="text-2xl" />

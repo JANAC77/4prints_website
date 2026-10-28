@@ -13,7 +13,7 @@ const CategoryCard = ({ category }) => {
   return (
     <Link
       to={`/category/${slug}`}
-      className="p-2 sm:p-3 md:p-4 flex flex-col items-center w-[110px] sm:w-[140px] md:w-[160px] lg:w-[180px] cursor-pointer group"
+      className="p-1.5 xs:p-2 sm:p-3 md:p-4 flex flex-col items-center w-[95px] xs:w-[110px] sm:w-[140px] md:w-[160px] lg:w-[180px] cursor-pointer group active:scale-95 transition-transform shrink-0"
     >
       <div className="relative w-full aspect-square rounded-full flex items-center justify-center mb-2 sm:mb-3 md:mb-4 bg-[#f4f1ea] transition-transform duration-300 group-hover:scale-105">
         <img

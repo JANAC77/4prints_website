@@ -54,7 +54,7 @@ const PromoBanner = () => {
           </div>
 
           {/* Right Image Container */}
-          <div className="relative z-10 w-full md:w-1/2 flex items-center justify-center bg-[#ffcc00] md:bg-transparent overflow-hidden md:overflow-visible">
+          <div className="relative z-10 w-full md:w-1/2 flex items-center justify-center bg-[#ffcc00] md:bg-transparent overflow-hidden md:overflow-visible py-6 sm:py-8 md:py-0">
             {/* Decorative Dots Pattern (Mobile Only) */}
             <div className="absolute top-4 right-4 grid grid-cols-6 gap-2 opacity-35 pointer-events-none z-0 md:hidden">
               {[...Array(24)].map((_, i) => (
@@ -69,7 +69,7 @@ const PromoBanner = () => {
             <img 
               src={homeBannerImg} 
               alt="Custom Printed Products like T-shirts, Mugs and Caps" 
-              className="relative z-10 md:-left-[15%] w-[85%] sm:w-[80%] md:w-[95%] max-w-none h-auto object-contain"
+              className="relative z-10 w-[85%] max-w-[280px] sm:max-w-[340px] md:max-w-none md:-left-[15%] md:w-[95%] h-auto object-contain"
             />
           </div>
           

@@ -91,7 +91,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="pt-4 sm:pt-6 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500 gap-3 md:gap-0">
           <p className="text-[11px] sm:text-xs md:text-xs text-center md:text-left">&copy; {new Date().getFullYear()} 4prints. All rights reserved.</p>
-          <div className="flex space-x-2.5 sm:space-x-3 items-center">
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-3 items-center">
             <div className="bg-white rounded px-1.5 sm:px-2 py-1 flex items-center justify-center h-7 sm:h-8">
               <Icon icon="logos:mastercard" className="w-6 sm:w-7 h-auto" />
             </div>

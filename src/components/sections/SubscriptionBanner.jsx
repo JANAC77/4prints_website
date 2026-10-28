@@ -34,10 +34,10 @@ const SubscriptionBanner = () => {
 
           {/* Right Content Section */}
           <div className="w-full md:w-1/2 relative z-10 flex flex-col items-center text-center md:items-start md:text-left">
-            <h2 className="text-lg md:text-xl lg:text-2xl xl:text-3xl font-extrabold text-gray-900 mb-2 sm:mb-3 font-poppins leading-snug sm:leading-tight tracking-tight whitespace-nowrap">
+            <h2 className="text-lg md:text-xl lg:text-2xl xl:text-3xl font-extrabold text-gray-900 mb-2 sm:mb-3 font-poppins leading-snug sm:leading-tight tracking-tight">
               Stay Inspired, Stay Updated
             </h2>
-            <p className="text-[10px] sm:text-xs md:text-[11px] lg:text-base text-gray-700/90 mb-5 sm:mb-6 max-w-[260px] xs:max-w-[310px] sm:max-w-[360px] md:max-w-[330px] lg:max-w-[470px] font-medium leading-relaxed line-clamp-2">
+            <p className="text-xs sm:text-xs md:text-[11px] lg:text-base text-gray-700/90 mb-5 sm:mb-6 max-w-[320px] sm:max-w-[470px] font-medium leading-relaxed">
               Subscribe to get exclusive offers, design tips, and new product updates straight to your inbox.
             </p>
             

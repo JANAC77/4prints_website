@@ -54,17 +54,17 @@ const CategorySection = () => {
   if (categories.length === 0) return null;
 
   return (
-    <section className="my-5 lg:my-8 mt-8 bg-[#fdfbf6] w-full">
+    <section className="my-3 sm:my-5 lg:my-8 mt-4 sm:mt-8 bg-[#fdfbf6] w-full">
       <div className="relative group w-full">
-        <h2 className="px-4 sm:px-6 md:px-8 text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-3 sm:mb-4 lg:mb-6 font-poppins">
+        <h2 className="px-4 sm:px-6 md:px-8 text-base sm:text-xl md:text-2xl font-semibold text-gray-900 mb-2 sm:mb-4 lg:mb-6 font-poppins">
           Explore all categories
         </h2>
         
-        {/* Left Button */}
+        {/* Left Button - desktop only */}
         {canScrollLeft && (
           <button 
             onClick={scrollLeft}
-            className="absolute left-2 top-[50%] -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 z-10 hover:bg-yellow-100 hover:text-yellow-800 text-gray-700 cursor-pointer"
+            className="hidden md:flex absolute left-2 top-[50%] -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 z-10 hover:bg-yellow-100 hover:text-yellow-800 text-gray-700 cursor-pointer"
             aria-label="Scroll left"
           >
             <Icon icon="lucide:chevron-left" className="text-2xl" />
@@ -75,23 +75,23 @@ const CategorySection = () => {
         <div 
           ref={scrollRef}
           onScroll={checkScroll}
-          className="flex overflow-x-auto gap-2 sm:gap-3 md:gap-4 px-4 sm:px-6 md:px-8 pb-4 snap-x snap-mandatory scrollbar-hide scroll-smooth"
+          className="flex overflow-x-auto gap-2 sm:gap-3 md:gap-4 px-4 sm:px-6 md:px-8 pb-3 sm:pb-4 snap-x snap-mandatory scrollbar-hide scroll-smooth"
         >
-          {categories.map((category, index) => (
+          {categories.map((category) => (
             <div 
-              key={category._id || category.id || index} 
-              className={`snap-start shrink-0 ${index === 0 ? 'pl-[16px]' : ''}`}
+              key={category._id || category.id} 
+              className="snap-start shrink-0"
             >
               <CategoryCard category={category} />
             </div>
           ))}
         </div>
 
-        {/* Right Button */}
+        {/* Right Button - desktop only */}
         {canScrollRight && (
           <button 
             onClick={scrollRight}
-            className="absolute right-2 top-[50%] -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 z-10 hover:bg-yellow-100 hover:text-yellow-800 text-gray-700 cursor-pointer"
+            className="hidden md:flex absolute right-2 top-[50%] -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 z-10 hover:bg-yellow-100 hover:text-yellow-800 text-gray-700 cursor-pointer"
             aria-label="Scroll right"
           >
             <Icon icon="lucide:chevron-right" className="text-2xl" />

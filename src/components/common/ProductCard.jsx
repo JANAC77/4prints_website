@@ -64,14 +64,14 @@ const ProductCard = ({ product, className = '' }) => {
     });
   };
 
-  const defaultDimensions = 'w-[180px] sm:w-[220px] md:w-[260px] shrink-0';
+  const defaultDimensions = 'w-[155px] xs:w-[170px] sm:w-[220px] md:w-[260px] shrink-0';
 
   return (
     <Link
       to={`/product/${slug}`}
-      className={`bg-white rounded-xl sm:rounded-[16px] shadow-[0_4px_16px_rgba(0,0,0,0.06)] flex flex-col overflow-hidden ${className || defaultDimensions}`}
+      className={`bg-white rounded-xl sm:rounded-[16px] shadow-[0_4px_16px_rgba(0,0,0,0.06)] flex flex-col overflow-hidden transition-all duration-200 active:scale-[0.98] ${className || defaultDimensions}`}
     >
-      <div className="relative h-[135px] sm:h-[175px] md:h-[210px] w-full bg-gray-100 shrink-0">
+      <div className="relative h-[120px] xs:h-[135px] sm:h-[175px] md:h-[210px] w-full bg-gray-100 shrink-0">
         <img
           src={getDisplayImageUrl(image)}
           alt={title}
@@ -83,7 +83,7 @@ const ProductCard = ({ product, className = '' }) => {
         <button
           type="button"
           onClick={handleHeartClick}
-          className="absolute top-2 right-2 sm:top-3 sm:right-3 bg-white p-1 rounded-full shadow-sm hover:text-red-500 text-gray-600 transition-colors focus:outline-none z-10 cursor-pointer"
+          className="absolute top-2 right-2 sm:top-3 sm:right-3 bg-white/95 p-1 rounded-full shadow-sm hover:text-red-500 text-gray-600 transition-colors focus:outline-none z-10 cursor-pointer active:scale-90"
           title={inWishlist ? 'Remove from wishlist' : 'Add to wishlist'}
         >
           <Icon
@@ -93,26 +93,26 @@ const ProductCard = ({ product, className = '' }) => {
         </button>
       </div>
 
-      <div className="p-2.5 sm:p-3.5 md:p-4 flex flex-col flex-grow">
+      <div className="p-2 xs:p-2.5 sm:p-3.5 md:p-4 flex flex-col flex-grow">
         <h3
-          className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base line-clamp-1 mb-1.5 sm:mb-2 md:mb-2.5"
+          className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base line-clamp-1 mb-1 sm:mb-2 md:mb-2.5"
           title={title}
         >
           {title}
         </h3>
 
-        <div className="flex justify-between items-center mt-auto text-[10px] sm:text-xs gap-1">
-          <div className="flex items-center gap-1 whitespace-nowrap min-w-0">
-            <span className="font-semibold text-gray-900">{priceDisplay}</span>
+        <div className="flex justify-between items-end mt-auto text-[10px] sm:text-xs gap-1">
+          <div className="flex flex-col min-w-0">
+            <span className="font-semibold text-gray-900 leading-tight whitespace-nowrap">{priceDisplay}</span>
             {qtyDisplay && (
-              <span className="text-gray-500 whitespace-nowrap">{qtyDisplay}</span>
+              <span className="text-gray-500 text-[9px] sm:text-[11px] leading-tight truncate whitespace-nowrap">{qtyDisplay}</span>
             )}
           </div>
-          <div className="flex items-center gap-0.5 sm:gap-1 font-semibold text-gray-900 shrink-0">
+          <div className="flex items-center gap-0.5 sm:gap-1 font-semibold text-gray-900 shrink-0 self-end">
             <AiFillStar className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 text-black" />
             <span>{ratingVal}</span>
             {reviewsCount > 0 && (
-              <span className="text-gray-500 font-normal">({reviewsCount})</span>
+              <span className="text-gray-500 font-normal hidden sm:inline">({reviewsCount})</span>
             )}
           </div>
         </div>

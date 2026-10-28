@@ -65,17 +65,17 @@ const PopularProducts = () => {
   if (products.length === 0) return null;
 
   return (
-    <section className="bg-[#fdfbf6]">
+    <section className="bg-[#fdfbf6] py-3 sm:py-6">
       <div className="relative group w-full">
-        <h2 className="px-4 sm:px-6 md:px-8 text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-6 font-poppins">
+        <h2 className="px-4 sm:px-6 md:px-8 text-base sm:text-xl md:text-2xl font-semibold text-gray-900 mb-3 sm:mb-6 font-poppins">
           Our Most Popular Products
         </h2>
         
-        {/* Left Button */}
+        {/* Left Button - hidden on touch/mobile */}
         {canScrollLeft && (
           <button 
             onClick={scrollLeft}
-            className="absolute left-2 top-[45%] -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 z-10 hover:bg-yellow-100 hover:text-yellow-800 text-gray-700 cursor-pointer"
+            className="hidden md:flex absolute left-2 top-[50%] -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 z-10 hover:bg-yellow-100 hover:text-yellow-800 text-gray-700 cursor-pointer"
             aria-label="Scroll left"
           >
             <Icon icon="lucide:chevron-left" className="text-2xl" />
@@ -86,23 +86,23 @@ const PopularProducts = () => {
         <div 
           ref={scrollRef}
           onScroll={checkScroll}
-          className="flex overflow-x-auto gap-4 px-4 sm:px-6 md:px-8 pb-6 snap-x snap-mandatory scrollbar-hide scroll-smooth"
+          className="flex overflow-x-auto gap-3 sm:gap-4 px-4 sm:px-6 md:px-8 pb-4 sm:pb-6 snap-x snap-mandatory scrollbar-hide scroll-smooth"
         >
-          {products.map((product, index) => (
+          {products.map((product) => (
             <div 
-              key={product._id || product.id || index} 
-              className={`snap-start shrink-0 ${index === 0 ? 'pl-[32px]' : ''}`}
+              key={product._id || product.id} 
+              className="snap-start shrink-0"
             >
               <ProductCard product={product} />
             </div>
           ))}
         </div>
 
-        {/* Right Button */}
+        {/* Right Button - hidden on touch/mobile */}
         {canScrollRight && (
           <button 
             onClick={scrollRight}
-            className="absolute right-2 top-[45%] -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 z-10 hover:bg-yellow-100 hover:text-yellow-800 text-gray-700 cursor-pointer"
+            className="hidden md:flex absolute right-2 top-[50%] -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 z-10 hover:bg-yellow-100 hover:text-yellow-800 text-gray-700 cursor-pointer"
             aria-label="Scroll right"
           >
             <Icon icon="lucide:chevron-right" className="text-2xl" />
