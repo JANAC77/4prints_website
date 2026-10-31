@@ -6,6 +6,7 @@ import { Icon } from '@iconify/react';
 import { useAuth } from '../../context/AuthContext';
 import { useCart } from '../../context/CartContext';
 import { useWishlist } from '../../context/WishlistContext';
+import { categoryApi } from '../../api/category.api';
 
 const MainNavbar = () => {
   const navigate = useNavigate();
@@ -15,7 +16,19 @@ const MainNavbar = () => {
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [expandedCategory, setExpandedCategory] = useState(null);
   const userMenuRef = useRef(null);
+
+  // Load categories for mobile drawer
+  useEffect(() => {
+    categoryApi
+      .list()
+      .then((cats) => {
+        if (Array.isArray(cats)) setCategories(cats);
+      })
+      .catch(() => {});
+  }, []);
 
   // Close user dropdown when clicked outside
   useEffect(() => {
@@ -36,22 +49,22 @@ const MainNavbar = () => {
 
   return (
     <nav className="w-full bg-[#fdfbf6] font-poppins border-b border-gray-100 sticky top-0 z-50 transition-all duration-300">
-      <div className="max-w-[1440px] mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8 py-4">
+      <div className="max-w-[1440px] mx-auto flex items-center justify-between px-3 sm:px-6 lg:px-8 py-3 sm:py-4">
         {/* Left: Logo */}
         <Link to="/" className="flex-shrink-0 flex items-center group">
           <img
             src={logo}
             alt="4prints Logo"
-            className="h-9 sm:h-11 md:h-12 object-contain transition-transform duration-300 group-hover:scale-102"
+            className="h-8 sm:h-11 md:h-12 object-contain transition-transform duration-300 group-hover:scale-102"
           />
         </Link>
 
-        {/* Center: Search Bar */}
+        {/* Center: Search Bar (Desktop) */}
         <div className="hidden lg:flex flex-1 justify-center px-8 max-w-2xl relative z-50">
           <SearchBar />
         </div>
 
-        {/* Right: Actions */}
+        {/* Right: Actions (Desktop) */}
         <div className="hidden lg:flex items-center space-x-3 xl:space-x-5 text-gray-700">
           {/* Wishlist */}
           <Link
@@ -164,7 +177,7 @@ const MainNavbar = () => {
 
         {/* Mobile Action Icons & Menu Button */}
         <div className="lg:hidden flex items-center space-x-1 sm:space-x-2">
-          <Link to="/wishlist" className="relative p-2.5 text-gray-800">
+          <Link to="/wishlist" className="relative p-2 text-gray-800" aria-label="Wishlist">
             <Icon icon="solar:heart-linear" className="text-2xl" />
             {wishlistCount > 0 && (
               <span className="absolute top-1 right-1 bg-[#FFD40C] text-gray-950 text-[10px] font-extrabold w-4 h-4 rounded-full flex items-center justify-center">
@@ -172,7 +185,7 @@ const MainNavbar = () => {
               </span>
             )}
           </Link>
-          <Link to="/cart" className="relative p-2.5 text-gray-800">
+          <Link to="/cart" className="relative p-2 text-gray-800" aria-label="Cart">
             <Icon icon="solar:cart-outline" className="text-2xl" />
             {totalItems > 0 && (
               <span className="absolute top-1 right-1 bg-[#110C0B] text-yellow-400 text-[10px] font-extrabold w-4 h-4 rounded-full flex items-center justify-center">
@@ -182,7 +195,7 @@ const MainNavbar = () => {
           </Link>
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="text-gray-900 p-2 focus:outline-none"
+            className="text-gray-900 p-2 focus:outline-none cursor-pointer"
             aria-label="Toggle menu"
           >
             <Icon
@@ -195,25 +208,26 @@ const MainNavbar = () => {
 
       {/* Mobile Drawer Menu */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden w-full bg-white border-t border-gray-100 shadow-xl py-4 px-5 space-y-4 animate-in fade-in">
+        <div className="lg:hidden w-full bg-white border-t border-gray-100 shadow-2xl py-4 px-4 sm:px-6 space-y-3 animate-in fade-in duration-200 max-h-[82vh] overflow-y-auto scrollbar-hide">
           <SearchBar />
 
-          <div className="flex flex-col space-y-1.5 pt-2">
+          <div className="flex flex-col space-y-1 pt-2">
             <Link
               to="/products"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="py-2.5 px-3.5 text-gray-900 font-semibold hover:bg-yellow-50 rounded-xl flex items-center gap-2"
+              className="py-2.5 px-3.5 text-gray-900 font-semibold hover:bg-yellow-50 rounded-xl flex items-center gap-2.5 text-sm"
             >
-              <Icon icon="solar:box-minimalistic-linear" className="text-lg text-yellow-600" />
+              <Icon icon="solar:box-minimalistic-bold" className="text-lg text-yellow-600" />
               <span>All Products Catalog</span>
             </Link>
+
             <Link
               to="/wishlist"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="py-2.5 px-3.5 text-gray-900 font-semibold hover:bg-yellow-50 rounded-xl flex items-center justify-between"
+              className="py-2.5 px-3.5 text-gray-900 font-semibold hover:bg-yellow-50 rounded-xl flex items-center justify-between text-sm"
             >
-              <div className="flex items-center gap-2">
-                <Icon icon="solar:heart-linear" className="text-lg text-yellow-600" />
+              <div className="flex items-center gap-2.5">
+                <Icon icon="solar:heart-bold" className="text-lg text-yellow-600" />
                 <span>My Wishlist</span>
               </div>
               {wishlistCount > 0 && (
@@ -222,13 +236,14 @@ const MainNavbar = () => {
                 </span>
               )}
             </Link>
+
             <Link
               to="/cart"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="py-2.5 px-3.5 text-gray-900 font-semibold hover:bg-yellow-50 rounded-xl flex items-center justify-between"
+              className="py-2.5 px-3.5 text-gray-900 font-semibold hover:bg-yellow-50 rounded-xl flex items-center justify-between text-sm"
             >
-              <div className="flex items-center gap-2">
-                <Icon icon="solar:cart-outline" className="text-lg text-yellow-600" />
+              <div className="flex items-center gap-2.5">
+                <Icon icon="solar:cart-bold" className="text-lg text-yellow-600" />
                 <span>Shopping Cart</span>
               </div>
               {totalItems > 0 && (
@@ -238,6 +253,75 @@ const MainNavbar = () => {
               )}
             </Link>
           </div>
+
+          {/* Mobile Categories & Subcategories Accordion */}
+          {categories.length > 0 && (
+            <div className="pt-2 border-t border-gray-100">
+              <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wider block mb-2 px-3">
+                Browse Categories
+              </span>
+              <div className="space-y-1">
+                {categories.map((cat) => {
+                  const isExpanded = expandedCategory === cat.slug;
+                  return (
+                    <div key={cat._id || cat.slug} className="rounded-xl overflow-hidden border border-gray-100/80">
+                      <div className="flex items-center justify-between py-2 px-3 bg-gray-50/50 hover:bg-yellow-50/80 transition-colors">
+                        <Link
+                          to={`/category/${cat.slug}`}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className="text-xs font-semibold text-gray-800 hover:text-black flex-1 truncate"
+                        >
+                          {cat.name}
+                        </Link>
+                        <button
+                          type="button"
+                          onClick={() => setExpandedCategory(isExpanded ? null : cat.slug)}
+                          className="p-1.5 text-gray-400 hover:text-gray-800 cursor-pointer"
+                          aria-label={`Toggle ${cat.name} subcategories`}
+                        >
+                          <Icon
+                            icon="lucide:chevron-down"
+                            className={`text-xs transition-transform duration-200 ${
+                              isExpanded ? 'rotate-180 text-yellow-700' : ''
+                            }`}
+                          />
+                        </button>
+                      </div>
+
+                      {/* Subcategories */}
+                      {isExpanded && (
+                        <div className="pl-5 pr-3 py-1.5 space-y-1 bg-white border-t border-gray-100">
+                          <Link
+                            to={`/category/${cat.slug}`}
+                            onClick={() => setIsMobileMenuOpen(false)}
+                            className="block py-1 text-xs text-yellow-800 font-bold hover:underline"
+                          >
+                            Explore All {cat.name} →
+                          </Link>
+                          {cat.subcategories && cat.subcategories.length > 0 ? (
+                            cat.subcategories.map((sub) => (
+                              <Link
+                                key={sub._id || sub.slug}
+                                to={`/category/${cat.slug}/${sub.slug}`}
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                className="block py-1 text-xs text-gray-600 hover:text-black truncate"
+                              >
+                                • {sub.name}
+                              </Link>
+                            ))
+                          ) : (
+                            <span className="block py-1 text-[11px] text-gray-400 italic">
+                              View items on category page
+                            </span>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
 
           <div className="pt-2 border-t border-gray-100">
             {isAuthenticated ? (
@@ -254,7 +338,7 @@ const MainNavbar = () => {
                     handleLogout();
                     setIsMobileMenuOpen(false);
                   }}
-                  className="block w-full py-2.5 px-4 text-center rounded-xl bg-red-50 text-red-600 font-bold text-sm"
+                  className="block w-full py-2.5 px-4 text-center rounded-xl bg-red-50 text-red-600 font-bold text-sm cursor-pointer"
                 >
                   Log Out
                 </button>
@@ -263,7 +347,7 @@ const MainNavbar = () => {
               <Link
                 to="/login"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="block w-full bg-[#ffcc00] text-black font-semibold px-6 py-3 rounded-md mt-4 text-center hover:bg-[#e6b800] transition-colors"
+                className="block w-full bg-[#ffcc00] text-black font-semibold px-6 py-3 rounded-md mt-2 text-center hover:bg-[#e6b800] transition-colors"
               >
                 Login
               </Link>

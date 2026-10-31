@@ -77,37 +77,78 @@ const CategoryPage = () => {
       </div>
 
       <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-        {/* Category Hero Banner */}
+        {/* Category Hero Banner - Website Matching Color & Theme */}
         {category && (
-          <div className="relative rounded-3xl bg-gradient-to-r from-gray-900 to-[#1e293b] text-white p-6 sm:p-10 lg:p-12 mb-8 overflow-hidden shadow-sm">
-            <div className="relative z-10 max-w-2xl">
-              <span className="text-xs font-bold text-yellow-400 uppercase tracking-widest bg-yellow-400/10 px-3 py-1 rounded-full inline-block mb-3">
-                Category Collection
-              </span>
-              <h1 className="text-2xl sm:text-4xl font-extrabold mb-3 leading-tight">
-                {category.name}
-              </h1>
-              <p className="text-sm sm:text-base text-gray-300 leading-relaxed max-w-xl">
-                {category.description}
-              </p>
+          <div 
+            className="relative rounded-2xl sm:rounded-3xl border border-yellow-200/80 p-4 sm:p-8 lg:p-12 mb-6 sm:mb-8 overflow-hidden shadow-xs"
+            style={{ background: 'linear-gradient(135deg, #fff9e6 0%, #fcf0da 50%, #ffffff 100%)' }}
+          >
+            {/* Decorative Yellow Background Shape (Desktop) */}
+            <div 
+              className="hidden md:block absolute top-0 right-0 bottom-0 w-[45%] bg-[#ffcc00]/25 z-0 pointer-events-none"
+              style={{ clipPath: 'polygon(20% 0, 100% 0, 100% 100%, 0% 100%)' }}
+            >
+              {/* Decorative dots pattern */}
+              <div className="absolute top-8 right-12 grid grid-cols-5 gap-2 opacity-35">
+                {[...Array(20)].map((_, i) => (
+                  <div key={i} className="w-1.5 h-1.5 rounded-full bg-yellow-600/60" />
+                ))}
+              </div>
             </div>
 
-            {category.image && (
-              <div className="absolute right-0 top-0 bottom-0 w-1/3 opacity-30 sm:opacity-40 overflow-hidden pointer-events-none hidden md:block">
-                <img
-                  src={getDisplayImageUrl(category.image)}
-                  alt={category.name}
-                  className="w-full h-full object-cover"
-                />
+            <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+              {/* Left Content */}
+              <div className="max-w-2xl w-full">
+                <span className="inline-flex items-center gap-1.5 text-xs font-bold text-gray-950 uppercase tracking-widest bg-[#FFD40C] px-3.5 py-1 rounded-full shadow-2xs mb-3">
+                  <Icon icon="solar:folder-with-files-bold" className="text-sm" />
+                  <span>Category Collection</span>
+                </span>
+                
+                <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-[#110C0B] mb-3 leading-tight tracking-tight">
+                  {category.name}
+                </h1>
+                
+                <p className="text-sm sm:text-base text-gray-700 leading-relaxed max-w-xl font-normal mb-5">
+                  {category.description || `Explore our high quality ${category.name} custom prints, crafted with premium materials and precision.`}
+                </p>
+
+                {/* Quality Highlights Tags */}
+                <div className="flex flex-wrap items-center gap-2.5 sm:gap-4 text-xs font-medium text-gray-800">
+                  <div className="flex items-center gap-1.5 bg-white/80 border border-yellow-200/80 px-3 py-1.5 rounded-full shadow-2xs">
+                    <Icon icon="solar:check-circle-bold" className="text-yellow-600 text-sm" />
+                    <span>2400 DPI Printing</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 bg-white/80 border border-yellow-200/80 px-3 py-1.5 rounded-full shadow-2xs">
+                    <Icon icon="solar:check-circle-bold" className="text-yellow-600 text-sm" />
+                    <span>Fast Turnaround</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 bg-white/80 border border-yellow-200/80 px-3 py-1.5 rounded-full shadow-2xs">
+                    <Icon icon="solar:check-circle-bold" className="text-yellow-600 text-sm" />
+                    <span>Custom Print Ready</span>
+                  </div>
+                </div>
               </div>
-            )}
+
+              {/* Right Image Display */}
+              {category.image && (
+                <div className="relative z-10 shrink-0 hidden md:block">
+                  <div className="w-56 h-44 lg:w-72 lg:h-52 rounded-2xl overflow-hidden shadow-lg border-4 border-white bg-white">
+                    <img
+                      src={getDisplayImageUrl(category.image)}
+                      alt={category.name}
+                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         )}
 
         {/* Subcategories Pills */}
         {subcategories.length > 0 && (
           <div className="mb-8">
-            <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">
+            <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">
               Explore Subcategories
             </h3>
             <div className="flex flex-wrap gap-2 sm:gap-2.5">
@@ -115,8 +156,8 @@ const CategoryPage = () => {
                 to={`/category/${slug}`}
                 className={`px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all ${
                   !subSlug
-                    ? 'bg-[#110C0B] text-white shadow-xs'
-                    : 'bg-white border border-gray-200 text-gray-700 hover:border-black'
+                    ? 'bg-[#110C0B] text-[#FFD40C] shadow-xs'
+                    : 'bg-white border border-gray-200 text-gray-700 hover:border-yellow-400 hover:bg-yellow-50/50'
                 }`}
               >
                 All in {category?.name || 'Category'}
@@ -129,8 +170,8 @@ const CategoryPage = () => {
                     to={`/category/${slug}/${sub.slug}`}
                     className={`px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all ${
                       isActive
-                        ? 'bg-[#110C0B] text-white shadow-xs'
-                        : 'bg-white border border-gray-200 text-gray-700 hover:border-black'
+                        ? 'bg-[#110C0B] text-[#FFD40C] shadow-xs'
+                        : 'bg-white border border-gray-200 text-gray-700 hover:border-yellow-400 hover:bg-yellow-50/50'
                     }`}
                   >
                     {sub.name}
@@ -168,7 +209,7 @@ const CategoryPage = () => {
               </p>
               <Link
                 to={`/category/${slug}`}
-                className="bg-[#110C0B] text-white px-6 py-2.5 rounded-xl text-xs font-semibold hover:bg-black transition-colors"
+                className="bg-[#110C0B] text-[#FFD40C] px-6 py-2.5 rounded-xl text-xs font-semibold hover:bg-black transition-colors"
               >
                 View all in {category?.name}
               </Link>

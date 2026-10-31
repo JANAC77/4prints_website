@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import { AiFillStar } from 'react-icons/ai';
@@ -27,8 +27,7 @@ const ProductDetailPage = () => {
   const [selectedVariants, setSelectedVariants] = useState({});
   const [designFile, setDesignFile] = useState(null);
   const [designNotes, setDesignNotes] = useState('');
-  const [activeTab, setActiveTab] = useState('highlights');
-  const [openFaqIndex, setOpenFaqIndex] = useState(null);
+  const [openFaqIndex, setOpenFaqIndex] = useState(0);
   const [relatedProducts, setRelatedProducts] = useState([]);
 
   useEffect(() => {
@@ -67,6 +66,8 @@ const ProductDetailPage = () => {
       })
       .finally(() => setLoading(false));
   }, [slug]);
+
+
 
   if (loading) {
     return (
@@ -414,7 +415,7 @@ const ProductDetailPage = () => {
               </div>
             )}
 
-            {/* Design Upload Section (Backend allowDesignUpload feature) */}
+            {/* Design Upload Section */}
             {product.allowDesignUpload && (
               <div className="bg-yellow-50/60 border border-yellow-200/80 rounded-2xl p-4 sm:p-5 mb-6">
                 <div className="flex items-center gap-2 mb-2">
@@ -482,89 +483,158 @@ const ProductDetailPage = () => {
           </div>
         </div>
 
-        {/* Product Information Tabs */}
-        <div className="mt-16 bg-white rounded-2xl border border-gray-100 shadow-xs overflow-hidden">
-          {/* Tab Headers */}
-          <div className="flex border-b border-gray-100 overflow-x-auto scrollbar-hide bg-gray-50/50">
-            {[
-              { id: 'highlights', label: 'Highlights & Overview' },
-              { id: 'specifications', label: 'Specifications' },
-              { id: 'templates', label: 'Design Templates' },
-              { id: 'faqs', label: 'FAQs & Support' },
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                type="button"
-                onClick={() => setActiveTab(tab.id)}
-                className={`py-3.5 px-6 text-sm font-semibold whitespace-nowrap transition-all cursor-pointer border-b-2 ${
-                  activeTab === tab.id
-                    ? 'border-[#110C0B] text-gray-900 bg-white'
-                    : 'border-transparent text-gray-500 hover:text-gray-800'
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
+        {/* Scroll-Based Details Section */}
+        <div className="mt-10 sm:mt-16 space-y-6 sm:space-y-8">
+            
+            {/* Section 1: Highlights & Overview */}
+            <section
+              id="section-highlights"
+              className="bg-white rounded-2xl border border-gray-100 shadow-xs p-4 sm:p-6 lg:p-8 scroll-mt-28"
+            >
+              <div className="flex items-center gap-2.5 pb-4 mb-6 border-b border-gray-100">
+                <div className="w-9 h-9 rounded-xl bg-yellow-100 flex items-center justify-center text-yellow-800">
+                  <Icon icon="solar:document-text-bold" className="text-xl" />
+                </div>
+                <div>
+                  <h2 className="text-lg sm:text-xl font-bold text-gray-900">Highlights & Overview</h2>
+                  <p className="text-xs text-gray-500">Comprehensive overview, print features, and materials</p>
+                </div>
+              </div>
 
-          {/* Tab Body */}
-          <div className="p-6 sm:p-8">
-            {/* Highlights Tab */}
-            {activeTab === 'highlights' && (
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-base font-bold text-gray-900 mb-2">Description</h3>
-                  <p className="text-sm text-gray-600 leading-relaxed">
-                    {product.description || product.shortDescription}
+                  <h3 className="text-sm font-bold text-gray-900 mb-2 uppercase tracking-wider text-xs">
+                    Product Description
+                  </h3>
+                  <p className="text-sm text-gray-600 leading-relaxed max-w-3xl">
+                    {product.description || product.shortDescription || 'Experience premium custom printing with exceptional attention to detail. Perfect for professional corporate branding, special events, and personal gifts.'}
                   </p>
                 </div>
 
-                {product.highlights && product.highlights.length > 0 && (
-                  <div>
-                    <h3 className="text-base font-bold text-gray-900 mb-3">Key Features & Quality Highlights</h3>
-                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
-                      {product.highlights.map((h, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm text-gray-700">
-                          <Icon icon="solar:check-circle-bold" className="text-yellow-600 text-lg shrink-0 mt-0.5" />
-                          <span>{h}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
-            )}
-
-            {/* Specifications Tab */}
-            {activeTab === 'specifications' && (
-              <div>
-                <h3 className="text-base font-bold text-gray-900 mb-4">Technical Specifications</h3>
-                {product.specifications && product.specifications.length > 0 ? (
-                  <div className="border border-gray-100 rounded-xl overflow-hidden divide-y divide-gray-100">
-                    {product.specifications.map((spec, i) => (
-                      <div key={i} className="grid grid-cols-1 sm:grid-cols-3 p-3.5 text-sm">
-                        <span className="font-semibold text-gray-700">{spec.title}</span>
-                        <span className="sm:col-span-2 text-gray-600">{spec.value}</span>
+                {/* Key Features & Highlights */}
+                <div>
+                  <h3 className="text-sm font-bold text-gray-900 mb-3 uppercase tracking-wider text-xs">
+                    Key Features & Quality Highlights
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    {(product.highlights && product.highlights.length > 0
+                      ? product.highlights
+                      : [
+                          'Premium quality certified materials',
+                          'High definition 2400 DPI vibrant printing',
+                          'Fast turnaround & doorstep dispatch',
+                          'Eco-friendly non-toxic inks used',
+                        ]
+                    ).map((h, i) => (
+                      <div
+                        key={i}
+                        className="flex items-start gap-3 p-3.5 rounded-xl bg-yellow-50/50 border border-yellow-100/80 text-sm text-gray-800"
+                      >
+                        <Icon icon="solar:check-circle-bold" className="text-[#FFD40C] text-lg shrink-0 mt-0.5" />
+                        <span className="font-medium">{h}</span>
                       </div>
                     ))}
                   </div>
-                ) : (
-                  <p className="text-sm text-gray-500">Standard specifications apply for this product line.</p>
-                )}
-              </div>
-            )}
+                </div>
 
-            {/* Templates Tab */}
-            {activeTab === 'templates' && (
-              <div>
-                <h3 className="text-base font-bold text-gray-900 mb-2">Downloadable Artwork Templates</h3>
-                <p className="text-sm text-gray-500 mb-6">
-                  Use our certified bleed and margin templates to ensure your print design comes out with pixel-perfect accuracy.
+                {/* Quality Guarantee Mini Banner */}
+                <div className="rounded-xl p-4 bg-gradient-to-r from-yellow-50 via-amber-50/70 to-yellow-50/40 border border-yellow-200/60 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-[#FFD40C] text-black flex items-center justify-center shrink-0 shadow-2xs font-extrabold">
+                      <Icon icon="solar:shield-check-bold" className="text-xl" />
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold text-gray-900">100% Quality & Print Guarantee</p>
+                      <p className="text-[11px] text-gray-600">If your print arrives with manufacturing defects, we will reprint it free of charge.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* Section 2: Technical Specifications */}
+            <section
+              id="section-specifications"
+              className="bg-white rounded-2xl border border-gray-100 shadow-xs p-4 sm:p-6 lg:p-8 scroll-mt-28"
+            >
+              <div className="flex items-center gap-2.5 pb-4 mb-6 border-b border-gray-100">
+                <div className="w-9 h-9 rounded-xl bg-yellow-100 flex items-center justify-center text-yellow-800">
+                  <Icon icon="solar:tuning-square-bold" className="text-xl" />
+                </div>
+                <div>
+                  <h2 className="text-lg sm:text-xl font-bold text-gray-900">Technical Specifications</h2>
+                  <p className="text-xs text-gray-500">Material density, dimensions, and manufacturing standards</p>
+                </div>
+              </div>
+
+              {product.specifications && product.specifications.length > 0 ? (
+                <div className="border border-gray-100 rounded-xl overflow-hidden divide-y divide-gray-100">
+                  {product.specifications.map((spec, i) => (
+                    <div key={i} className="grid grid-cols-1 sm:grid-cols-3 p-3.5 text-sm hover:bg-gray-50/60 transition-colors">
+                      <span className="font-semibold text-gray-700">{spec.title}</span>
+                      <span className="sm:col-span-2 text-gray-600">{spec.value}</span>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                  <div className="p-4 rounded-xl bg-gray-50/70 border border-gray-100">
+                    <p className="text-xs text-gray-400 font-bold uppercase">Print Resolution</p>
+                    <p className="text-sm font-semibold text-gray-900 mt-1">2400 x 1200 DPI High-Def</p>
+                  </div>
+                  <div className="p-4 rounded-xl bg-gray-50/70 border border-gray-100">
+                    <p className="text-xs text-gray-400 font-bold uppercase">Material Quality</p>
+                    <p className="text-sm font-semibold text-gray-900 mt-1">Commercial Grade Certified</p>
+                  </div>
+                  <div className="p-4 rounded-xl bg-gray-50/70 border border-gray-100">
+                    <p className="text-xs text-gray-400 font-bold uppercase">Color Profile</p>
+                    <p className="text-sm font-semibold text-gray-900 mt-1">CMYK Full Color Process</p>
+                  </div>
+                </div>
+              )}
+            </section>
+
+            {/* Section 3: Design Templates & Artwork Setup */}
+            <section
+              id="section-templates"
+              className="bg-white rounded-2xl border border-gray-100 shadow-xs p-4 sm:p-6 lg:p-8 scroll-mt-28"
+            >
+              <div className="flex items-center gap-2.5 pb-4 mb-6 border-b border-gray-100">
+                <div className="w-9 h-9 rounded-xl bg-yellow-100 flex items-center justify-center text-yellow-800">
+                  <Icon icon="solar:ruler-pen-bold" className="text-xl" />
+                </div>
+                <div>
+                  <h2 className="text-lg sm:text-xl font-bold text-gray-900">Design Templates & Guidelines</h2>
+                  <p className="text-xs text-gray-500">Download starter templates and ensure pixel-perfect print alignment</p>
+                </div>
+              </div>
+
+              <div className="space-y-5">
+                <p className="text-sm text-gray-600 leading-relaxed max-w-3xl">
+                  Use our certified bleed and margin templates to ensure your design prints accurately without accidental cropping or border misalignment.
                 </p>
+
+                {/* Guidelines Pills */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div className="p-3.5 rounded-xl border border-dashed border-gray-200 bg-gray-50/40">
+                    <span className="text-xs font-bold text-gray-900 block mb-1">Standard Bleed</span>
+                    <span className="text-xs text-gray-500">Add 3mm bleed margin on all sides of your artwork.</span>
+                  </div>
+                  <div className="p-3.5 rounded-xl border border-dashed border-gray-200 bg-gray-50/40">
+                    <span className="text-xs font-bold text-gray-900 block mb-1">Color Mode</span>
+                    <span className="text-xs text-gray-500">Save designs in CMYK color format for exact color match.</span>
+                  </div>
+                  <div className="p-3.5 rounded-xl border border-dashed border-gray-200 bg-gray-50/40">
+                    <span className="text-xs font-bold text-gray-900 block mb-1">Safe Zone</span>
+                    <span className="text-xs text-gray-500">Keep critical text and logos 4mm away from trim line.</span>
+                  </div>
+                </div>
+
+                {/* Templates List */}
                 {product.templates && product.templates.length > 0 ? (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pt-2">
                     {product.templates.map((tpl, i) => (
-                      <div key={i} className="border border-gray-200 rounded-xl p-4 flex items-center justify-between">
+                      <div key={i} className="border border-gray-200 rounded-xl p-4 flex items-center justify-between hover:border-yellow-400 transition-colors">
                         <div>
                           <p className="text-sm font-bold text-gray-900">{tpl.title}</p>
                           <p className="text-xs text-gray-400">PDF / AI Guidelines</p>
@@ -573,7 +643,8 @@ const ProductDetailPage = () => {
                           href={tpl.file || '#'}
                           target="_blank"
                           rel="noreferrer"
-                          className="p-2 rounded-lg bg-gray-100 hover:bg-yellow-200 text-gray-800 transition-colors"
+                          className="p-2.5 rounded-xl bg-yellow-100 hover:bg-[#FFD40C] text-gray-900 transition-colors shadow-2xs cursor-pointer"
+                          title="Download artwork template"
                         >
                           <Icon icon="solar:download-linear" className="text-lg" />
                         </a>
@@ -581,21 +652,40 @@ const ProductDetailPage = () => {
                     ))}
                   </div>
                 ) : (
-                  <div className="p-6 text-center bg-gray-50 rounded-xl">
-                    <Icon icon="solar:file-linear" className="text-3xl text-gray-400 mx-auto mb-2" />
-                    <p className="text-sm text-gray-600">Standard bleed is 3mm. You can upload artwork directly or our team will assist you.</p>
+                  <div className="p-5 text-center bg-yellow-50/40 rounded-xl border border-yellow-100 flex items-center justify-between flex-wrap gap-3">
+                    <div className="flex items-center gap-3 text-left">
+                      <Icon icon="solar:file-download-bold" className="text-2xl text-yellow-700" />
+                      <div>
+                        <p className="text-xs font-bold text-gray-900">Need artwork assistance or a custom template?</p>
+                        <p className="text-xs text-gray-500">Upload your file during checkout and our prepress team will verify it free of charge.</p>
+                      </div>
+                    </div>
                   </div>
                 )}
               </div>
-            )}
+            </section>
 
-            {/* FAQs Tab */}
-            {activeTab === 'faqs' && (
+            {/* Section 4: FAQs & Support */}
+            <section
+              id="section-faqs"
+              className="bg-white rounded-2xl border border-gray-100 shadow-xs p-4 sm:p-6 lg:p-8 scroll-mt-28"
+            >
+              <div className="flex items-center gap-2.5 pb-4 mb-6 border-b border-gray-100">
+                <div className="w-9 h-9 rounded-xl bg-yellow-100 flex items-center justify-center text-yellow-800">
+                  <Icon icon="solar:question-circle-bold" className="text-xl" />
+                </div>
+                <div>
+                  <h2 className="text-lg sm:text-xl font-bold text-gray-900">Frequently Asked Questions</h2>
+                  <p className="text-xs text-gray-500">Everything you need to know about ordering and delivery</p>
+                </div>
+              </div>
+
               <div className="space-y-3">
-                <h3 className="text-base font-bold text-gray-900 mb-3">Frequently Asked Questions</h3>
                 {(product.faqs && product.faqs.length > 0 ? product.faqs : [
                   { question: 'What is the printing and delivery timeframe?', answer: 'Standard production takes 24-48 business hours. Shipping across India typically arrives in 2-4 business days.' },
-                  { question: 'Can I request a sample before a large bulk order?', answer: 'Yes! Contact support via email or place a sample order with the minimum order tier.' },
+                  { question: 'Can I request a sample before a large bulk order?', answer: 'Yes! Contact our team or place a sample order with the minimum order tier to test the texture and color.' },
+                  { question: 'What file formats are accepted for design upload?', answer: 'We accept high resolution PDF, Adobe Illustrator (.AI), Photoshop (.PSD), SVG, and high-DPI PNG or JPEG files.' },
+                  { question: 'Can I order custom sizes or finishes not listed?', answer: 'Absolutely! Our print specialists can provide custom dimensions, foiling, UV spot coating, and die-cut shapes upon request.' },
                 ]).map((faq, i) => {
                   const isOpen = openFaqIndex === i;
                   return (
@@ -603,16 +693,16 @@ const ProductDetailPage = () => {
                       <button
                         type="button"
                         onClick={() => setOpenFaqIndex(isOpen ? null : i)}
-                        className="w-full flex items-center justify-between p-4 text-left font-semibold text-sm text-gray-900 hover:bg-gray-50 transition-colors cursor-pointer"
+                        className="w-full flex items-center justify-between p-4 text-left font-semibold text-sm text-gray-900 hover:bg-yellow-50/30 transition-colors cursor-pointer"
                       >
                         <span>{faq.question}</span>
                         <Icon
                           icon="lucide:chevron-down"
-                          className={`text-gray-400 text-lg transition-transform ${isOpen ? 'rotate-180' : ''}`}
+                          className={`text-gray-400 text-lg transition-transform duration-200 ${isOpen ? 'rotate-180 text-yellow-700' : ''}`}
                         />
                       </button>
                       {isOpen && (
-                        <div className="p-4 pt-0 text-sm text-gray-600 leading-relaxed border-t border-gray-50 bg-gray-50/30">
+                        <div className="p-4 pt-0 text-sm text-gray-600 leading-relaxed border-t border-gray-50 bg-gray-50/20">
                           {faq.answer}
                         </div>
                       )}
@@ -620,9 +710,8 @@ const ProductDetailPage = () => {
                   );
                 })}
               </div>
-            )}
+            </section>
           </div>
-        </div>
 
         {/* Related Products Carousel */}
         {relatedProducts.length > 0 && (
